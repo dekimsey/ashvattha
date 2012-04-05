@@ -29,26 +29,32 @@
  * on some platforms. A templatized version of SimplexNoise1234 could be useful.
  */
 
-class SimplexNoise1234 {
+class SimplexNoise {
 
   public:
-    SimplexNoise1234() {}
-    ~SimplexNoise1234() {}
+    SimplexNoise() {}
+    ~SimplexNoise() {}
 
-/** 1D, 2D, 3D and 4D float Perlin noise
+/** 1D, 2D, 3D and 4D float Simplex noise
  */
     static float noise( float x );
     static float noise( float x, float y );
     static float noise( float x, float y, float z );
     static float noise( float x, float y, float z, float w );
 
-/** 1D, 2D, 3D and 4D float Perlin noise, with a specified integer period
+/** 1D, 2D, 3D and 4D float Simplex noise, with a specified integer period
  */
     static float pnoise( float x, int px );
     static float pnoise( float x, float y, int px, int py );
     static float pnoise( float x, float y, float z, int px, int py, int pz );
     static float pnoise( float x, float y, float z, float w,
                               int px, int py, int pz, int pw );
+   
+    //normalize value to be between low and high
+    static float norm( float x, float low, float high );
+    static float norm( float x, float y, float low, float high );
+    static float norm( float x, float y, float z, float low, float high );
+    static float norm( float x, float y, float z, float w, float low, float high );
 
   private:
     static const unsigned char perm[];
@@ -56,5 +62,6 @@ class SimplexNoise1234 {
     static float grad( int hash, float x, float y );
     static float grad( int hash, float x, float y , float z );
     static float grad( int hash, float x, float y, float z, float t );
+    static float normv( float value, float low, float high );
 
 };

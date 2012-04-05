@@ -1,4 +1,8 @@
-// SimplexNoise1234
+// SimplexNoise
+//
+// A modified version of 
+//
+// simplexnoise1234
 // Copyright © 2003-2011, Stefan Gustavson
 //
 // Contact: stegu@itn.liu.se
@@ -14,7 +18,7 @@
 // General Public License for more details.
 
 /** \file
-		\brief Implements the SimplexNoise1234 class for producing Perlin simplex noise.
+		\brief Implements the SimplexNoise class for producing Perlin simplex noise.
 		\author Stefan Gustavson (stegu@itn.liu.se)
 */
 
@@ -33,7 +37,7 @@
  */
 
 
-#include	"simplexnoise1234.h"
+#include	"SimplexNoise.h"
 
 #define FASTFLOOR(x) ( ((x)>0) ? ((int)x) : (((int)x)-1) )
 
@@ -57,7 +61,7 @@
  * A vector-valued noise over 3D accesses it 96 times, and a
  * float-valued 4D noise 64 times. We want this to fit in the cache!
  */
-const unsigned char SimplexNoise1234::perm[512] = {151,160,137,91,90,15,
+const unsigned char SimplexNoise::perm[512] = {151,160,137,91,90,15,
   131,13,201,95,96,53,194,233,7,225,140,36,103,30,69,142,8,99,37,240,21,10,23,
   190, 6,148,247,120,234,75,0,26,197,62,94,252,219,203,117,35,11,32,57,177,33,
   88,237,149,56,87,174,20,125,136,171,168, 68,175,74,165,71,134,139,48,27,166,
@@ -97,31 +101,31 @@ const unsigned char SimplexNoise1234::perm[512] = {151,160,137,91,90,15,
  * signed version of Perlin noise. To return values according to the
  * RenderMan specification from the SL noise() and pnoise() functions,
  * the noise values need to be scaled and offset to [0,1], like this:
- * float SLnoise = (SimplexNoise1234::noise(x,y,z) + 1.0) * 0.5;
+ * float SLnoise = (SimplexNoise::noise(x,y,z) + 1.0) * 0.5;
  */
 
-float  SimplexNoise1234::grad( int hash, float x ) {
+float  SimplexNoise::grad( int hash, float x ) {
     int h = hash & 15;
     float grad = 1.0f + (h & 7);   // Gradient value 1.0, 2.0, ..., 8.0
     if (h&8) grad = -grad;         // Set a random sign for the gradient
     return ( grad * x );           // Multiply the gradient with the distance
 }
 
-float  SimplexNoise1234::grad( int hash, float x, float y ) {
+float  SimplexNoise::grad( int hash, float x, float y ) {
     int h = hash & 7;      // Convert low 3 bits of hash code
     float u = h<4 ? x : y;  // into 8 simple gradient directions,
     float v = h<4 ? y : x;  // and compute the dot product with (x,y).
     return ((h&1)? -u : u) + ((h&2)? -2.0f*v : 2.0f*v);
 }
 
-float  SimplexNoise1234::grad( int hash, float x, float y , float z ) {
+float  SimplexNoise::grad( int hash, float x, float y , float z ) {
     int h = hash & 15;     // Convert low 4 bits of hash code into 12 simple
     float u = h<8 ? x : y; // gradient directions, and compute dot product.
     float v = h<4 ? y : h==12||h==14 ? x : z; // Fix repeats at h = 12 to 15
     return ((h&1)? -u : u) + ((h&2)? -v : v);
 }
 
-float  SimplexNoise1234::grad( int hash, float x, float y, float z, float t ) {
+float  SimplexNoise::grad( int hash, float x, float y, float z, float t ) {
     int h = hash & 31;      // Convert low 5 bits of hash code into 32 simple
     float u = h<24 ? x : y; // gradient directions, and compute dot product.
     float v = h<16 ? y : z;
@@ -143,7 +147,7 @@ float  SimplexNoise1234::grad( int hash, float x, float y, float z, float t ) {
     {2,1,0,3},{0,0,0,0},{0,0,0,0},{0,0,0,0},{3,1,0,2},{0,0,0,0},{3,2,0,1},{3,2,1,0}};
 
 // 1D simplex noise
-float SimplexNoise1234::noise(float x) {
+float SimplexNoise::noise(float x) {
 
   int i0 = FASTFLOOR(x);
   int i1 = i0 + 1;
@@ -169,7 +173,7 @@ float SimplexNoise1234::noise(float x) {
 }
 
 // 2D simplex noise
-float SimplexNoise1234::noise(float x, float y) {
+float SimplexNoise::noise(float x, float y) {
 
 #define F2 0.366025403 // F2 = 0.5*(sqrt(3.0)-1.0)
 #define G2 0.211324865 // G2 = (3.0-Math.sqrt(3.0))/6.0
@@ -236,7 +240,7 @@ float SimplexNoise1234::noise(float x, float y) {
   }
 
 // 3D simplex noise
-float SimplexNoise1234::noise(float x, float y, float z) {
+float SimplexNoise::noise(float x, float y, float z) {
 
 // Simple skewing factors for the 3D case
 #define F3 0.333333333
@@ -335,7 +339,7 @@ float SimplexNoise1234::noise(float x, float y, float z) {
 
 
 // 4D simplex noise
-float SimplexNoise1234::noise(float x, float y, float z, float w) {
+float SimplexNoise::noise(float x, float y, float z, float w) {
   
   // The skewing and unskewing factors are hairy again for the 4D case
 #define F4 0.309016994 // F4 = (Math.sqrt(5.0)-1.0)/4.0
@@ -469,3 +473,24 @@ float SimplexNoise1234::noise(float x, float y, float z, float w) {
     return 27.0f * (n0 + n1 + n2 + n3 + n4); // TODO: The scale factor is preliminary!
   }
 //---------------------------------------------------------------------
+
+//normalize the given value (between -1 and 1) to be between low and high, inclusive
+float inline SimplexNoise::normv(float value, float low, float high) {
+    return value * (high - low) / 2.f + (high + low)/2.f;
+}
+
+float SimplexNoise::norm(float x, float low, float high) {
+    return SimplexNoise::normv(SimplexNoise::noise(x), low, high);
+}
+
+float SimplexNoise::norm(float x, float y, float low, float high) {
+    return SimplexNoise::normv(SimplexNoise::noise(x, y), low, high);
+}
+
+float SimplexNoise::norm(float x, float y, float z, float low, float high) {
+    return SimplexNoise::normv(SimplexNoise::noise(x, y, z), low, high);
+}
+
+float SimplexNoise::norm(float x, float y, float z, float w, float low, float high) {
+    return SimplexNoise::normv(SimplexNoise::noise(x, y, z, w), low, high);
+}
