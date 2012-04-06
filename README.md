@@ -3,7 +3,7 @@
 The goal of this project is to provide a functional framework for a fully procedurally-generated world.  For starters, this project is going to work strictly on physical features of landmass (i.e. basic geography).  In the future, it will encompass a veritable suite of tools for procedurally generating worlds and everything that goes with it.
 
 ##Right now, however...
-+Let there be noise -- Simplex Noise implemented.  It's not much, but it's a start.
++ Let there be noise -- Simplex Noise implemented.  It's not much, but it's a start.
 
 ##Requirements
 The basic library itself will be designed to work in any environment.  However, to compile my examples and tests, the Qt 4 SDK is required.
