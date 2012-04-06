@@ -1,8 +1,11 @@
-// SimplexNoise1234
-// Copyright © 2003-2011, Stefan Gustavson
+// SimplexNoise
 //
+//
+// Copyright © 2003-2011, Stefan Gustavson
 // Contact: stegu@itn.liu.se
 //
+// with modifications by Christian Maher
+// 
 // This library is public domain software, released by the author
 // into the public domain in February 2011. You may do anything
 // you like with it. You may even remove all attributions,
@@ -42,14 +45,13 @@ class SimplexNoise {
     static float noise( float x, float y, float z );
     static float noise( float x, float y, float z, float w );
 
-/** 1D, 2D, 3D and 4D float Simplex noise, with a specified integer period
+/** 1D, 2D, 3D and 4D float Simplex noise, octaves 
  */
-    static float pnoise( float x, int px );
-    static float pnoise( float x, float y, int px, int py );
-    static float pnoise( float x, float y, float z, int px, int py, int pz );
-    static float pnoise( float x, float y, float z, float w,
-                              int px, int py, int pz, int pw );
-   
+    static float octave(int n, float x, float p, float scale, float low, float high);
+    static float octave(int n, float x, float y, float p, float scale, float low, float high);
+    static float octave(int n, float x, float y, float z, float p, float scale, float low, float high);
+    static float octave(int n, float x, float y, float z, float w, float p, float scale, float low, float high);
+    
     //normalize value to be between low and high
     static float norm( float x, float low, float high );
     static float norm( float x, float y, float low, float high );

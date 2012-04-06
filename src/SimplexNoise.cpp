@@ -36,7 +36,6 @@
  * on any other file, apart from its own header file.
  */
 
-
 #include	"SimplexNoise.h"
 
 #define FASTFLOOR(x) ( ((x)>0) ? ((int)x) : (((int)x)-1) )
@@ -476,7 +475,7 @@ float SimplexNoise::noise(float x, float y, float z, float w) {
 
 //normalize the given value (between -1 and 1) to be between low and high, inclusive
 float inline SimplexNoise::normv(float value, float low, float high) {
-    return value * (high - low) / 2.f + (high + low)/2.f;
+    return value * (high - low) / 2.f + (high + low) / 2.f;
 }
 
 float SimplexNoise::norm(float x, float low, float high) {
@@ -493,4 +492,74 @@ float SimplexNoise::norm(float x, float y, float z, float low, float high) {
 
 float SimplexNoise::norm(float x, float y, float z, float w, float low, float high) {
     return SimplexNoise::normv(SimplexNoise::noise(x, y, z, w), low, high);
+}
+
+/*
+ * Octaves make use of Fractal brownian motion to make the noise whispy and textured
+ * instead of boring and blurry
+ */
+
+float SimplexNoise::octave(int n, float x, float p, float scale, float low, float high) {
+    float maxAmp = 0;
+    float amp = 20;
+    float freq = scale;
+    float noise = 0;
+
+    for (int i = 0; i < n; ++i) {
+        noise += SimplexNoise::noise(x * freq) * amp;
+        maxAmp += amp;
+        amp *= p;
+        freq *= 2;
+    }
+
+    return SimplexNoise::normv(noise / maxAmp, low, high);
+}
+
+
+float SimplexNoise::octave(int n, float x, float y, float p, float scale, float low, float high) {
+    float maxAmp = 0;
+    float amp = 1;
+    float freq = scale;
+    float noise = 0;
+    
+    for (int i = 0; i < n; ++i) {
+        noise += SimplexNoise::noise(x * freq, y * freq) * amp;
+        maxAmp += amp;
+        amp *= p;
+        freq *= 2;
+    }
+    return SimplexNoise::normv(noise / maxAmp, low, high);
+}
+
+float SimplexNoise::octave(int n, float x, float y, float z, float p, float scale, float low, float high) {
+    float maxAmp = 0;
+    float amp = 1;
+    float freq = scale;
+    float noise = 0;
+
+    for (int i = 0; i < n; ++i) {
+        noise += SimplexNoise::noise(x * freq, y * freq, z * freq) * amp;
+        maxAmp += amp;
+        amp *= p;
+        freq *= 2;
+    }
+
+    return SimplexNoise::normv(noise / maxAmp, low, high);
+}
+
+
+float SimplexNoise::octave(int n, float x, float y, float z, float w, float p, float scale, float low, float high) {
+    float maxAmp = 0;
+    float amp = 1;
+    float freq = scale;
+    float noise = 0;
+
+    for (int i = 0; i < n; ++i) {
+        noise += SimplexNoise::noise(x * freq, y * freq, z * freq, w * freq) * amp;
+        maxAmp += amp;
+        amp *= p;
+        freq *= 2;
+    }
+
+    return SimplexNoise::normv(noise / maxAmp, low, high);
 }
