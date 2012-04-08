@@ -37,7 +37,6 @@ class SimplexNoise {
   public:
     SimplexNoise() {}
     ~SimplexNoise() {}
-
 /** 1D, 2D, 3D and 4D float Simplex noise
  */
     static float noise( float x );
@@ -57,9 +56,9 @@ class SimplexNoise {
     static float norm( float x, float y, float low, float high );
     static float norm( float x, float y, float z, float low, float high );
     static float norm( float x, float y, float z, float w, float low, float high );
-
+    
   private:
-    static const unsigned char perm[];
+    static unsigned char perm[];
     static float grad( int hash, float x );
     static float grad( int hash, float x, float y );
     static float grad( int hash, float x, float y , float z );
