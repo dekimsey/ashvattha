@@ -4,6 +4,7 @@ The goal of this project is to provide a functional framework for a fully proced
 
 ##Right now, however...
 + Let there be noise -- Simplex Noise implemented.  It's not much, but it's a start.
+                      - Explanation (http://www.farfromrobots.com/2012/04/08/working-with-simplex-noise/)
 
 ##Requirements
 The basic library itself will be designed to work in any environment.  However, to compile my examples and tests, the Qt 4 SDK is required.
