@@ -501,7 +501,7 @@ float SimplexNoise::norm(float x, float y, float z, float w, float low, float hi
 
 float SimplexNoise::octave(int n, float x, float p, float scale, float low, float high) {
     float maxAmp = 0;
-    float amp = 20;
+    float amp = 1;
     float freq = scale;
     float noise = 0;
 

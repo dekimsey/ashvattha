@@ -10,8 +10,8 @@
 #include <ctime>
 #include <climits>
 
-static const unsigned int width = 512;
-static const unsigned int height = 512;
+static const unsigned int width = 600;
+static const unsigned int height = 96;
 static const unsigned int nOctaves = 16;
 static const float  persistence = .5;
 static const float frequency = .007;
