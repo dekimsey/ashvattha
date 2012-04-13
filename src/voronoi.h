@@ -11,7 +11,7 @@ class Voronoi {
 
     private:
         int xmax, ymax, xmin, ymin;
-        std::vector< PointPtr > _sites;
+        std::vector< Point > _sites;
         void generateSites(int width, int height, int numSites);
 };
 #endif
