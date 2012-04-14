@@ -7,8 +7,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
-#include <ctime>
-#include <climits>
+#include <random>
 
 static const unsigned int width = 512;
 static const unsigned int height = 512;
@@ -19,15 +18,15 @@ static const float low = 0;
 static const float high = 255;
 
 int main(int argc, char* argv[]) {
+    std::random_device rd;
     QApplication app(argc, argv);
     QImage img(width, height, QImage::Format_RGB32);
     QLabel lbl;
     QPixmap pixmap;
     
-    std::srand(std::time(NULL));
     //if these values break the system, you probably shouldn't be using this noise in the first place
-    int xOff = rand() % USHRT_MAX;
-    int yOff = rand() % USHRT_MAX;
+    int xOff = rd()  % USHRT_MAX;
+    int yOff = rd()  % USHRT_MAX;
 
     for (unsigned int i = 0; i < width; i++) {
         for (unsigned int j = 0; j < height; j++) {
