@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
     pixmap = QPixmap::fromImage(img);
     lbl.setPixmap(pixmap);
     lbl.show();
-    pixmap.save("img.png");
+    //pixmap.save("img.png");
 
     std::printf("%d %d %d %d\n", noise.getSeedX(), noise.getSeedY(), noise.getSeedZ(), noise.getSeedW()); 
 
