@@ -5,7 +5,7 @@
 #include <vector>
 #include <memory>
 
-class ASHWorld {
+class ASHTerrain {
     private:
 
         typedef std::vector< int > region_strip_t;
@@ -21,6 +21,7 @@ class ASHWorld {
         void init();
         region_cube_ptr initRegionCube(int xspan, int yspan, int zspan);
         region_square_ptr initRegionSquare(int xspan, int yspan);
+        int ASHTerrain::fillZTerrain(const int x, const int y, const int zmin, const unsigned int zspan, region_square_ptr heightmap, region_cube_ptr rcubePtr);
 
     public:
         typedef std::unique_ptr< region_cube_t > region_cube_ptr;
@@ -29,7 +30,7 @@ class ASHWorld {
             unsigned int span;
         }
 
-        ASHWorld(restrict unsigned int depth, restrict unsigned int height);
+        ASHTerrain(restrict unsigned int depth, restrict unsigned int height);
        
         region_cube_ptr getRegion(const int xmin, const unsigned int xspan, const int ymin, const unsigned int yspan, const int zmin, const unsigned int zspan);
 

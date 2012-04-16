@@ -1,16 +1,16 @@
 #include "ASHNoise.h"
 
-ASHWorld::ASHWorld(restrict unsigned int depth, restrict unsigned int height) : _depth(-depth), _height(height) {
+ASHTerrain::ASHTerrain(restrict unsigned int depth, restrict unsigned int height) : _depth(-depth), _height(height) {
     _noise = new ASHNoise{}; 
 }
 
-void ASHWorld::init() {
+void ASHTerrain::init() {
     //set low, high based on density properties of blocks
     _noise->setLow(_depth);
     _noise->setHigh(_height);
 }
 
-region_cube_ptr ASHWorld::getRegionCube(const int xmin, const unsigned int xspan, const int ymin, const unsigned int yspan, const int zmin, const unsigned int zspan) {
+region_cube_ptr ASHTerrain::getRegionCube(const int xmin, const unsigned int xspan, const int ymin, const unsigned int yspan, const int zmin, const unsigned int zspan) {
     auto rcubePtr = initRegionCube(xspan, yspan, zspan);
     auto heightmap = initRegionSquare(xspan, yspan);
 
@@ -30,7 +30,7 @@ region_cube_ptr ASHWorld::getRegionCube(const int xmin, const unsigned int xspan
 //get the corresponding z terrain for the given x, y, and z values
 //using the heightmap
 //and storing in rcubePtr
-int ASHWorld::getZTerrain(const int x, const int y, const int zmin, const unsigned int zspan, region_square_ptr heightmap, region_cube_ptr rcubePtr) {
+int ASHTerrain::fillZTerrain(const int x, const int y, const int zmin, const unsigned int zspan, region_square_ptr heightmap, region_cube_ptr rcubePtr) {
     int zmax = zmin + zspan;
 
     //constrain the zvalues to the _depth and _height
@@ -70,7 +70,7 @@ int ASHWorld::getZTerrain(const int x, const int y, const int zmin, const unsign
     }
 }
 
-region_cube_ptr ASHWorld::initRegionCube(int xspan, int yspan, int zspan) {
+region_cube_ptr ASHTerrain::initRegionCube(int xspan, int yspan, int zspan) {
     region_cube_ptr rptr = new region_cube_t(xspan);
 
     for(int x = 0; x < xspan; ++x) {
@@ -88,7 +88,7 @@ region_cube_ptr ASHWorld::initRegionCube(int xspan, int yspan, int zspan) {
     return rptr; 
 }
 
-ASHWorld::region_square_ptr ASHWorld::initRegionSquare(int xspan, int yspan) {
+ASHTerrain::region_square_ptr ASHTerrain::initRegionSquare(int xspan, int yspan) {
     region_square_ptr rptr = new region_square_t(xspan);
 
     for(int x = 0; x < xspan; ++x) {
