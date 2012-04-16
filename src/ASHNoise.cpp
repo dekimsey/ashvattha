@@ -2,16 +2,36 @@
 #include "SimplexNoise.h"
 #include <random>
 
+const int ASHNoise::MAX_SEED = USHRT_MAX;
+const int ASHNoise::DEFAULT_OCTAVES = 16;
+const float ASHNoise::DEFAULT_PERSISTENCE = .5;
+const float ASHNoise::DEFAULT_SCALE = .007;
+const float ASHNoise::DEFAULT_LOW = 0;
+const float ASHNoise::DEFAULT_HIGH = 255;
+
+
 //generate a new noise with random seeds
 ASHNoise::ASHNoise() {
     _seedX = generateSeed();
     _seedY = generateSeed();
     _seedZ = generateSeed();
     _seedW = generateSeed();
+    init();
 }
 
 //generate new noise with clamped given seeds
-ASHNoise::ASHNoise(int seedX, int seedY, int seedZ, int seedW) : _seedX(clampSeed(seedX)), _seedY(clampSeed(seedY)), _seedZ(clampSeed(seedZ)), _seedW(clampSeed(seedW)) {}
+ASHNoise::ASHNoise(int seedX, int seedY, int seedZ, int seedW) : _seedX(clampSeed(seedX)), _seedY(clampSeed(seedY)), _seedZ(clampSeed(seedZ)), _seedW(clampSeed(seedW)) {
+    init();
+}
+
+void ASHNoise::init() {
+    _octaves = ASHNoise::DEFAULT_OCTAVES;
+    _persistence = ASHNoise::DEFAULT_PERSISTENCE;
+    _scale = ASHNoise::DEFAULT_SCALE;
+    _low = ASHNoise::DEFAULT_LOW;
+    _high = ASHNoise::DEFAULT_HIGH;
+}
+
 
 //generate a signed seed within bounds
 int ASHNoise::generateSeed() {
@@ -103,19 +123,19 @@ void ASHNoise::setScale(float scale) {
     _scale = scale;
 }
 
-float getLow() {
+float ASHNoise::getLow() {
     return _low;
 }
 
-void setLow(float low) {
+void ASHNoise::setLow(float low) {
     _low = low;
 }
 
-float getHigh() {
+float ASHNoise::getHigh() {
     return _high;
 }
 
-void setHigh(float high) {
+void ASHNoise::setHigh(float high) {
     _high = high;
 }
 

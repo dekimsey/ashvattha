@@ -38,20 +38,26 @@ class ASHNoise {
 
 
     private:
-        static const int MAX_SEED = USHRT_MAX;
+        static const int MAX_SEED;
+        static const int DEFAULT_OCTAVES;
+        static const float DEFAULT_PERSISTENCE;
+        static const float DEFAULT_SCALE;
+        static const float DEFAULT_LOW;
+        static const float DEFAULT_HIGH;
+
         int _seedX;
         int _seedY;
         int _seedZ;
         int _seedW;
 
         //noise variables with default values
-        int _octaves = 16;
-        float _persistence = .5;
-        float _scale = .007;
-        float _low = 0;
-        float _high = 255;
+        int _octaves;
+        float _persistence;
+        float _scale;
+        float _low;
+        float _high;
 
-
+        void init();
         int generateSeed();
         int clampSeed(int seed);
 };
