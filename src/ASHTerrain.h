@@ -9,16 +9,14 @@
 class ASHTerrain {
     private:
         //density noise
-        std::shared_ptr< ASHNoise > _dNoise;
-
+        ASHNoise _dNoise;
         //height noise
-        std::shared_ptr< ASHNoise > _hNoise;
+        ASHNoise _hNoise;
+        
         int _depth, _height;
 
         void init();
-        void fillZTerrain(int x, int y, int zmin, unsigned int zspan, 
-                const ASHRegion::region_square_ptr& heightmap,
-                const ASHRegion::region_cube_ptr& rcubePtr);
+        void fillZTerrain(int x, int y, int zmin, unsigned int zspan);
 
     public:
         static const int MIN_DENSITY;
@@ -26,7 +24,7 @@ class ASHTerrain {
 
         ASHTerrain(unsigned int depth, unsigned int height);
 
-        ASHRegion::region_cube_ptr getRegionCube(int xmin, 
+        ASHRegion::RegionCube getRegionCube(int xmin, 
                 unsigned int xspan, int ymin, unsigned int yspan, 
                 int zmin, unsigned int zspan);
 };
