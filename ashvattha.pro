@@ -6,13 +6,18 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += . src
 INCLUDEPATH += . src
-QMAKE_CXXFLAGS += -std=c++0x
+QMAKE_CXX = clang++
+QMAKE_CXXFLAGS += -std=c++11
 OBJECTS_DIR = bin/
 DESTDIR = dist/
+QMAKE_LINK = clang++
+
+HEADERS += src/*.h
+SOURCES += src/*.cpp
 
 # Input
-HEADERS += src/ASHNoise.h src/ASHTerrain.h src/SimplexNoise.h
-SOURCES += src/ASHNoise.cpp \
-           src/ASHTerrain.cpp \
-           src/example.cpp \
-           src/SimplexNoise.cpp
+#HEADERS += src/ASHNoise.h src/ASHTerrain.h src/SimplexNoise.h
+#SOURCES += src/ASHNoise.cpp \
+#           src/ASHTerrain.cpp \
+#           src/example.cpp \
+#           src/SimplexNoise.cpp

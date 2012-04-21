@@ -20,7 +20,9 @@ ASHNoise::ASHNoise() {
 }
 
 //generate new noise with clamped given seeds
-ASHNoise::ASHNoise(int seedX, int seedY, int seedZ, int seedW) : _seedX(clampSeed(seedX)), _seedY(clampSeed(seedY)), _seedZ(clampSeed(seedZ)), _seedW(clampSeed(seedW)) {
+ASHNoise::ASHNoise(int seedX, int seedY, int seedZ, int seedW) :
+    _seedX(clampSeed(seedX)), _seedY(clampSeed(seedY)), 
+    _seedZ(clampSeed(seedZ)), _seedW(clampSeed(seedW)) {
     init();
 }
 
@@ -64,23 +66,31 @@ float ASHNoise::octave(float x, float y, float z) {
 }
 
 float ASHNoise::octave(float x, float y, float z, float w) {
-    return octave(_octaves, x, y, z, w, _persistence, _scale, _low, _high);
+    return octave(_octaves, x, y, z, w, _persistence, _scale, 
+            _low, _high);
 }
 
-float ASHNoise::octave(int n, float x, float p, float scale, float low, float high) {
+float ASHNoise::octave(int n, float x, float p, float scale, 
+        float low, float high) {
     return SimplexNoise::octave(n, x + _seedX, p, scale, low, high);
 }
 
-float ASHNoise::octave(int n, float x, float y, float p, float scale, float low, float high) {
-    return SimplexNoise::octave(n, x + _seedX, y + _seedY, p, scale, low, high);
+float ASHNoise::octave(int n, float x, float y, float p, float scale, 
+        float low, float high) {
+    return SimplexNoise::octave(n, x + _seedX, y + _seedY, p, scale, 
+            low, high);
 }
 
-float ASHNoise::octave(int n, float x, float y, float z, float p, float scale, float low, float high) {
-    return SimplexNoise::octave(n, x + _seedX, y + _seedY, z + _seedZ, p, scale, low, high);
+float ASHNoise::octave(int n, float x, float y, float z, float p, 
+        float scale, float low, float high) {
+    return SimplexNoise::octave(n, x + _seedX, y + _seedY, z + _seedZ, 
+            p, scale, low, high);
 }
 
-float ASHNoise::octave(int n, float x, float y, float z, float w, float p, float scale, float low, float high) {
-    return SimplexNoise::octave(n, x + _seedX, y + _seedY, z + _seedZ, w + _seedW, p, scale, low, high);
+float ASHNoise::octave(int n, float x, float y, float z, float w, 
+        float p, float scale, float low, float high) {
+    return SimplexNoise::octave(n, x + _seedX, y + _seedY, z + _seedZ, 
+            w + _seedW, p, scale, low, high);
 }
 
 int ASHNoise::getSeedX() {

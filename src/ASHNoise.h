@@ -16,10 +16,14 @@ class ASHNoise {
         float octave(float x, float y, float z, float w);
 
         //octave with custom values
-        float octave(int n, float x, float p, float scale, float low, float high);
-        float octave(int n, float x, float y, float p, float scale, float low, float high);
-        float octave(int n, float x, float y, float z, float p, float scale, float low, float high);
-        float octave(int n, float x, float y, float z, float w, float p, float scale, float low, float high);
+        float octave(int n, float x, float p, float scale, float low,
+                float high);
+        float octave(int n, float x, float y, float p, float scale, 
+                float low, float high);
+        float octave(int n, float x, float y, float z, float p, 
+                float scale, float low, float high);
+        float octave(int n, float x, float y, float z, float w, 
+                float p, float scale, float low, float high);
 
         int getSeedX();
         int getSeedY();
