@@ -9,11 +9,11 @@ namespace ASHRegion {
     typedef std::vector< RegionStrip > RegionSquare;
     typedef std::vector< RegionSquare > RegionCube;
 
-    static region_cube_ptr initRegionCube(int xspan, int yspan, 
-            int zspan);
-    static region_square_ptr initRegionSquare(int xspan, int yspan);
+    RegionCube initRegionCube(int xspan, int yspan, int zspan);
+    RegionSquare initRegionSquare(int xspan, int yspan);
+    RegionStrip initRegionStrip(int xspan);
     
-    struct RegionBounds {
+    struct Bounds {
         int xmin;
         unsigned int xspan;
 

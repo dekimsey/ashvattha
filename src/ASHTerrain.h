@@ -16,7 +16,10 @@ class ASHTerrain {
         int _depth, _height;
 
         void init();
-        void fillZTerrain(int x, int y, int zmin, unsigned int zspan);
+        ASHRegion::RegionStrip fillZTerrain(
+                const ASHRegion::Bounds& bounds);
+        ASHRegion::RegionSquare getHeightMap(
+                const ASHRegion::Bounds& bounds);
 
     public:
         static const int MIN_DENSITY;
@@ -24,9 +27,7 @@ class ASHTerrain {
 
         ASHTerrain(unsigned int depth, unsigned int height);
 
-        ASHRegion::RegionCube getRegionCube(int xmin, 
-                unsigned int xspan, int ymin, unsigned int yspan, 
-                int zmin, unsigned int zspan);
+        ASHRegion::RegionCube getRegionCube(ASHRegion::Bounds bounds);
 };
 
 #endif

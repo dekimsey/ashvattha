@@ -1,26 +1,34 @@
 #include <ASHRegion.h>
 
-ASHRegion::RegionCube ASHRegion::initRegionCube(int xspan, int yspan, int zspan) {
+ASHRegion::RegionCube ASHRegion::initRegionCube(
+        int xspan, int yspan, int zspan) {
     RegionCube cube(xspan);
 
     for(int x = 0; x < xspan; ++x) {
-        rptr.push_back(ASHRegion::initRegionSquare(yspan, zspan));
+        cube.push_back(ASHRegion::initRegionSquare(yspan, zspan));
     }
 
-    return rptr; 
+    return cube; 
 }
 
-ASHRegion::region_square_t ASHRegion::initRegionSquare(int xspan, int yspan) {
-    region_square_t square(xspan);
+ASHRegion::RegionSquare ASHRegion::initRegionSquare(
+        int xspan, int yspan) {
+    RegionSquare square(xspan);
 
     for(int x = 0; x < yspan; ++x) {
-        RegionStrip strip(yspan);
-        rptr.push_back(stripPtr);
-
-        for(int y = 0; y < yspan; ++y) {
-            rptr[x].push_back(0);
-        }
+        square.push_back(ASHRegion::initRegionStrip(yspan));
     }
-    return rptr;
+
+    return square;
 }
 
+
+ASHRegion::RegionStrip ASHRegion::initRegionStrip(int xspan) {
+    RegionStrip strip(xspan);
+
+    for(int x = 0; x < xspan; ++x) {
+        strip.push_back(0);
+    }
+
+    return strip;
+}
