@@ -8,7 +8,9 @@ generating worlds and everything that goes with it.
 
 ##Building
 % qmake
+
 % make
+
 % bin/ashvattha
 
 ##Right now, however...
