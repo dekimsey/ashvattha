@@ -12,26 +12,26 @@ const float ASHNoise::DEFAULT_HIGH = 255;
 
 //generate a new noise with random seeds
 ASHNoise::ASHNoise() {
-    _seedX = generateSeed();
-    _seedY = generateSeed();
-    _seedZ = generateSeed();
-    _seedW = generateSeed();
+    m_seedX = generateSeed();
+    m_seedY = generateSeed();
+    m_seedZ = generateSeed();
+    m_seedW = generateSeed();
     init();
 }
 
 //generate new noise with clamped given seeds
 ASHNoise::ASHNoise(int seedX, int seedY, int seedZ, int seedW) :
-    _seedX(clampSeed(seedX)), _seedY(clampSeed(seedY)), 
-    _seedZ(clampSeed(seedZ)), _seedW(clampSeed(seedW)) {
+    m_seedX(clampSeed(seedX)), m_seedY(clampSeed(seedY)), 
+    m_seedZ(clampSeed(seedZ)), m_seedW(clampSeed(seedW)) {
     init();
 }
 
 void ASHNoise::init() {
-    _octaves = ASHNoise::DEFAULT_OCTAVES;
-    _persistence = ASHNoise::DEFAULT_PERSISTENCE;
-    _scale = ASHNoise::DEFAULT_SCALE;
-    _low = ASHNoise::DEFAULT_LOW;
-    _high = ASHNoise::DEFAULT_HIGH;
+    m_octaves = ASHNoise::DEFAULT_OCTAVES;
+    m_persistence = ASHNoise::DEFAULT_PERSISTENCE;
+    m_scale = ASHNoise::DEFAULT_SCALE;
+    m_low = ASHNoise::DEFAULT_LOW;
+    m_high = ASHNoise::DEFAULT_HIGH;
 }
 
 
@@ -54,98 +54,98 @@ int ASHNoise::clampSeed(int seed) {
 }
 
 float ASHNoise::octave(float x) {
-    return octave(_octaves, x, _persistence, _scale, _low, _high);
+    return octave(m_octaves, x, m_persistence, m_scale, m_low, m_high);
 }
 
 float ASHNoise::octave(float x, float y) {
-    return octave(_octaves, x, y, _persistence, _scale, _low, _high);
+    return octave(m_octaves, x, y, m_persistence, m_scale, m_low, m_high);
 }
 
 float ASHNoise::octave(float x, float y, float z) {
-    return octave(_octaves, x, y, z, _persistence, _scale, _low, _high);
+    return octave(m_octaves, x, y, z, m_persistence, m_scale, m_low, m_high);
 }
 
 float ASHNoise::octave(float x, float y, float z, float w) {
-    return octave(_octaves, x, y, z, w, _persistence, _scale, 
-            _low, _high);
+    return octave(m_octaves, x, y, z, w, m_persistence, m_scale, 
+            m_low, m_high);
 }
 
 float ASHNoise::octave(int n, float x, float p, float scale, 
         float low, float high) {
-    return SimplexNoise::octave(n, x + _seedX, p, scale, low, high);
+    return SimplexNoise::octave(n, x + m_seedX, p, scale, low, high);
 }
 
 float ASHNoise::octave(int n, float x, float y, float p, float scale, 
         float low, float high) {
-    return SimplexNoise::octave(n, x + _seedX, y + _seedY, p, scale, 
+    return SimplexNoise::octave(n, x + m_seedX, y + m_seedY, p, scale, 
             low, high);
 }
 
 float ASHNoise::octave(int n, float x, float y, float z, float p, 
         float scale, float low, float high) {
-    return SimplexNoise::octave(n, x + _seedX, y + _seedY, z + _seedZ, 
+    return SimplexNoise::octave(n, x + m_seedX, y + m_seedY, z + m_seedZ, 
             p, scale, low, high);
 }
 
 float ASHNoise::octave(int n, float x, float y, float z, float w, 
         float p, float scale, float low, float high) {
-    return SimplexNoise::octave(n, x + _seedX, y + _seedY, z + _seedZ, 
-            w + _seedW, p, scale, low, high);
+    return SimplexNoise::octave(n, x + m_seedX, y + m_seedY, z + m_seedZ, 
+            w + m_seedW, p, scale, low, high);
 }
 
 int ASHNoise::getSeedX() {
-    return _seedX;
+    return m_seedX;
 }
 
 int ASHNoise::getSeedY() {
-    return _seedY;
+    return m_seedY;
 }
 
 int ASHNoise::getSeedZ() {
-    return _seedZ;
+    return m_seedZ;
 }
 
 int ASHNoise::getSeedW() {
-    return _seedW;
+    return m_seedW;
 }
 
 int ASHNoise::getOctaves() {
-    return _octaves;
+    return m_octaves;
 }
 
 void ASHNoise::setOctaves(int octaves) {
-    _octaves = octaves;
+    m_octaves = octaves;
 }
 
 float ASHNoise::getPersistence() {
-    return _persistence;
+    return m_persistence;
 }
 
 void ASHNoise::setPersistence(float persistence) {
-    _persistence = persistence;
+    m_persistence = persistence;
 }
 
 float ASHNoise::getScale() {
-    return _scale;
+    return m_scale;
 }
 
 void ASHNoise::setScale(float scale) {
-    _scale = scale;
+    m_scale = scale;
 }
 
 float ASHNoise::getLow() {
-    return _low;
+    return m_low;
 }
 
 void ASHNoise::setLow(float low) {
-    _low = low;
+    m_low = low;
 }
 
 float ASHNoise::getHigh() {
-    return _high;
+    return m_high;
 }
 
 void ASHNoise::setHigh(float high) {
-    _high = high;
+    m_high = high;
 }
 

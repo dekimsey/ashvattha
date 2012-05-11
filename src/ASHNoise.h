@@ -49,17 +49,17 @@ class ASHNoise {
         static const float DEFAULT_LOW;
         static const float DEFAULT_HIGH;
 
-        int _seedX;
-        int _seedY;
-        int _seedZ;
-        int _seedW;
+        int m_seedX;
+        int m_seedY;
+        int m_seedZ;
+        int m_seedW;
 
         //noise variables with default values
-        int _octaves;
-        float _persistence;
-        float _scale;
-        float _low;
-        float _high;
+        int m_octaves;
+        float m_persistence;
+        float m_scale;
+        float m_low;
+        float m_high;
 
         void init();
         int generateSeed();

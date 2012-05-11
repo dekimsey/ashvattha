@@ -6,14 +6,19 @@
 #include <vector>
 #include <memory>
 
+/*
+ * ASHTerrain: A class that can be used to generate the terrain map for a given bounds
+ *  it doesn't store the terrain, since the world can be consistently procedurally generated
+ */
+
 class ASHTerrain {
     private:
         //density noise
-        ASHNoise _dNoise;
+        ASHNoise m_dNoise;
         //height noise
-        ASHNoise _hNoise;
+        ASHNoise m_hNoise;
         
-        int _depth, _height;
+        int m_depth, m_height;
 
         void init();
         ASHRegion::RegionStrip fillZTerrain(

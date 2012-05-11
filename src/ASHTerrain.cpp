@@ -4,18 +4,18 @@ const int ASHTerrain::MIN_DENSITY = 0;
 const int ASHTerrain::MAX_DENSITY = 255;
 
 ASHTerrain::ASHTerrain(unsigned int depth, unsigned int height) : 
-    _depth(-depth), _height(height) {
+    m_depth(-depth), m_height(height) {
     init();
 }
 
 void ASHTerrain::init() {
     //set low, high based on density properties of blocks
-    _dNoise.setLow(ASHTerrain::MIN_DENSITY);
-    _dNoise.setHigh(ASHTerrain::MAX_DENSITY); 
+    m_dNoise.setLow(ASHTerrain::MIN_DENSITY);
+    m_dNoise.setHigh(ASHTerrain::MAX_DENSITY); 
 
     //set low, high on height noise
-    _hNoise.setLow(_depth);
-    _hNoise.setHigh(_height);
+    m_hNoise.setLow(m_depth);
+    m_hNoise.setHigh(m_height);
 }
 
 ASHRegion::RegionCube ASHTerrain::getRegionCube(
@@ -24,12 +24,12 @@ ASHRegion::RegionCube ASHTerrain::getRegionCube(
     int ymax = bounds.ymin + bounds.yspan;
     int zmax = bounds.zmin + bounds.zspan;
 
-    //constrain the zvalues to the _depth and _height
-    if(bounds.zmin < _depth) {
-        bounds.zmin = _depth;
+    //constrain the zvalues to the m_depth and m_height
+    if(bounds.zmin < m_depth) {
+        bounds.zmin = m_depth;
     }
-    if(zmax > _height) {
-        bounds.zspan = _height - bounds.zmin;
+    if(zmax > m_height) {
+        bounds.zspan = m_height - bounds.zmin;
     }
 
     auto regionCube = ASHRegion::initRegionCube(bounds.xspan, 
@@ -59,28 +59,28 @@ ASHRegion::RegionStrip ASHTerrain::fillZTerrain(
     const int y = bounds.ymin;
 
     //account for depth and heightmap height
-    //z < 0 is filled from _depth to 0
+    //z < 0 is filled from m_depth to 0
     //z > 0 is filled from 0 to heighmap[x][y]
     //this creates a relatively filled underground
     //and an aboveground of varied height
     if(bounds.zmin < 0) {
         if(zmax < 0) {
             for(int z = bounds.zmin; z < zmax; ++z) {
-                strip[z] = _dNoise.octave(x, y, z);
+                strip[z] = m_dNoise.octave(x, y, z);
             }
         } else {
             //guaranteed to pass through zero
             for(int z = bounds.zmin; z < 0; ++z) {
-                strip[z] = _dNoise.octave(x, y, z);
+                strip[z] = m_dNoise.octave(x, y, z);
             }
             for(int z = 0; z < heightmap[x][y] && z < zmax; ++z) {
-                strip[z] = _dNoise.octave(x, y, z);
+                strip[z] = m_dNoise.octave(x, y, z);
             }
         } 
     }
     else {
         for(int z = bounds.zmin; z < heightmap[x][y] && z < zmax; ++z) {
-            strip[z] = _dNoise.octave(x, y, z);
+            strip[z] = m_dNoise.octave(x, y, z);
         }
     }
 
@@ -96,7 +96,7 @@ ASHRegion::RegionSquare ASHTerrain::getHeightMap(
 
     for(int x = bounds.xmin; x < xmax; ++x) {
         for(int y = bounds.ymin; y < ymax; ++y) {
-            heightmap[x][y] = _hNoise.octave(x, y);
+            heightmap[x][y] = m_hNoise.octave(x, y);
         } 
     }
 
