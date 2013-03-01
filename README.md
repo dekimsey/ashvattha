@@ -11,7 +11,7 @@ generating worlds and everything that goes with it.
 
 % make
 
-% bin/ashvattha
+% dist/ashvattha
 
 ##Right now, however...
 + Let there be noise -- Simplex Noise implemented.  It's not much, but it's a start.
