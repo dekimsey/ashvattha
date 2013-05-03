@@ -2,8 +2,9 @@
     "name": "ashvattha",
     "version": "0.0.1",
     "dependencies": {
-        "three": "0.56.x",
+        "threejs": "*",
         "toxiclibsjs": "0.1.x",
-        "requirejs": "2.1.x"
+        "requirejs": "2.1.x",
+        "jquery": "2.0.x"
     }
 }
