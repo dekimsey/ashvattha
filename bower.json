@@ -5,6 +5,7 @@
         "threejs": "*",
         "toxiclibsjs": "0.1.x",
         "requirejs": "2.1.x",
+        "r.js": "*",
         "jquery": "2.0.x"
     }
 }

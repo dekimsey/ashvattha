@@ -1,8 +1,8 @@
 dist
 deps
-r.js
 lib/jquery
 lib/toxiclibsjs
 lib/requirejs
 lib/threejs
+lib/r.js
 
