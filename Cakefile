@@ -14,9 +14,11 @@ jqueryLink = "http://code.jquery.com/#{jquery}"
 rjs = 'lib/r.js/dist/r.js'
 
 commonBuild = ->
-  exec 'mkdir --parents dist', loggerIgnore
+  exec 'mkdir stage', loggerIgnore
+  exec 'mkdir dist', loggerIgnore
   exec 'cp --recursive web/* dist', loggerIgnore
-  exec 'coffee --compile lib/ src/', logger
+  exec 'cp --recursive dep/* stage'
+  exec 'coffee --compile stage/ src/', logger
   exec "node #{rjs} -o build.js optimize=#{optimize}", logger
 
 task 'build', 'Build project from src/*.coffee to lib/*.js', ->
