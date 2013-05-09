@@ -16,10 +16,11 @@ rjs = 'lib/r.js/dist/r.js'
 commonBuild = ->
   exec 'mkdir stage', loggerIgnore
   exec 'mkdir dist', loggerIgnore
-  exec 'cp --recursive web/* dist', loggerIgnore
+  exec 'cp --recursive web/* stage', loggerIgnore
   exec 'cp --recursive dep/* stage'
   exec 'coffee --compile stage/ src/', logger
   exec "node #{rjs} -o build.js optimize=#{optimize}", logger
+  exec 'cp --recursive stage/* dist', loggerIgnore
 
 task 'build', 'Build project from src/*.coffee to lib/*.js', ->
   optimize = 'none'
@@ -29,4 +30,5 @@ task 'dist', 'Concatenate and compress', ->
   commonBuild()
 
 task 'clean', 'Remove built files', ->
+  exec 'rm --force --recursive stage', logger
   exec 'rm --force --recursive dist', logger
