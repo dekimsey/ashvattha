@@ -9,20 +9,20 @@ logger = (err, stdout, stderr) ->
 
 optimize = 'uglify'
 min = ''
-rjs = 'lib/r.js/dist/r.js'
+rjs = 'vendor/r.js/dist/r.js'
 
 commonStage = ->
   exec 'mkdir stage', loggerIgnore
   exec 'mkdir stage/js', loggerIgnore
   exec 'mkdir dist', loggerIgnore
   exec 'cp --recursive web/* stage', logger
-  exec 'cp --recursive lib/* stage/js', logger
+  exec 'cp --recursive vendor/* stage/js', logger
   exec 'coffee --compile stage/js src/', logger
 
 commonBuild = ->
   exec 'cp --recursive stage/* dist', loggerIgnore
 
-task 'build', 'Build project from src/*.coffee to lib/*.js', ->
+task 'build', 'Build project from src/*.coffee to vendor/*.js', ->
   optimize = 'none'
   commonStage()
   commonBuild()
