@@ -1,6 +1,6 @@
 ({
-    baseUrl: 'stage',
-    name: 'main',
     nodeRequire: 'require',
-    out: 'dist/js/ashvattha.min.js'
+    out: 'dist/js/ashvattha.min.js',
+    baseUrl: 'stage/js',
+    name: 'main'
 })

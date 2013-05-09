@@ -9,24 +9,30 @@ logger = (err, stdout, stderr) ->
 
 optimize = 'uglify'
 min = ''
-jquery = 'jquery-2.0.0'
-jqueryLink = "http://code.jquery.com/#{jquery}"
 rjs = 'lib/r.js/dist/r.js'
 
-commonBuild = ->
+commonStage = ->
   exec 'mkdir stage', loggerIgnore
+  exec 'mkdir stage/js', loggerIgnore
   exec 'mkdir dist', loggerIgnore
-  exec 'cp --recursive web/* stage', loggerIgnore
-  exec 'cp --recursive dep/* stage'
-  exec 'coffee --compile stage/ src/', logger
-  exec "node #{rjs} -o build.js optimize=#{optimize}", logger
+  exec 'cp --recursive web/* stage', logger
+  exec 'cp --recursive lib/* stage/js', logger
+  exec 'coffee --compile stage/js src/', logger
+
+commonBuild = ->
   exec 'cp --recursive stage/* dist', loggerIgnore
 
 task 'build', 'Build project from src/*.coffee to lib/*.js', ->
   optimize = 'none'
+  commonStage()
   commonBuild()
 
 task 'dist', 'Concatenate and compress', ->
+  commonStage()
+  jqueryBase = 'stage/js/jquery'
+  exec "mv #{jqueryBase}/jquery.js #{jqueryBase}/jquery.full.js", logger
+  exec "mv #{jqueryBase}/jquery.min.js #{jqueryBase}/jquery.js", logger
+  exec "node #{rjs} -o build.js optimize=#{optimize}", logger
   commonBuild()
 
 task 'clean', 'Remove built files', ->
