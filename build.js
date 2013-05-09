@@ -1,6 +1,9 @@
 ({
     nodeRequire: 'require',
     out: 'dist/js/ashvattha.min.js',
-    baseUrl: 'stage/js',
-    name: 'main'
+    baseUrl: 'dist/js',
+    name: 'main',
+    paths: {
+        toxi: 'stage/js/toxiclibsjs/lib/toxi'
+    }
 })
