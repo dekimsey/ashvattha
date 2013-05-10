@@ -34,3 +34,6 @@ task 'dist', 'Concatenate and compress', ->
 task 'clean', 'Remove built files', ->
   exec 'rm --force --recursive stage', logger
   exec 'rm --force --recursive dist', logger
+
+task 'server', 'Run the test server', ->
+  exec 'http-server dist', logger

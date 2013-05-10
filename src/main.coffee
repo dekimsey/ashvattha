@@ -2,9 +2,10 @@
 requirejs.config
   baseUrl: 'js'
   paths:
-    toxi: 'js/toxiclibsjs/lib/toxi'
+    toxi: 'toxiclibsjs/lib/toxi'
   shim:
     three:
       exports: 'THREE'
 
-define ['toxi/color'], ->
+define ['toxi/color'], (color) ->
+  console.log color.TColor.BLACK_POINT
