@@ -7,5 +7,4 @@ requirejs.config
     three:
       exports: 'THREE'
 
-define ['toxi/color'], (color) ->
-  console.log color.TColor.BLACK_POINT
+define [], ->
