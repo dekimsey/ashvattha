@@ -1,0 +1,6 @@
+project(ashvattha)
+cmake_minimum_required(VERSION 2.8)
+add_library(ashvattha src/SimplexNoise.cpp src/ASHNoise.cpp)
+add_definitions(-std=c++11)
+install(TARGETS ashvattha DESTINATION "lib")
+install(FILES src/SimplexNoise.h src/ASHNoise.h DESTINATION "include/ashvattha")
