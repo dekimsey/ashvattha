@@ -1,5 +1,12 @@
 #Ashvatta
 
+This is a fork of the [Ashvatta](https://github.com/cmaher/ashvattha)
+procedural world generation project. This fork is simply a stripped down
+[Simplex](http://en.wikipedia.org/wiki/Simplex_noise) noise generator.
+
+Why? Because all the other C++ simplex noise libraries are GPL'd (not LGPL)
+which kind of makes them hard to use in a private project.
+
 ##Building
 
     % mkdir build
