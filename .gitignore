@@ -1,1 +1,28 @@
 build
+# Created by http://gitignore.io
+
+#!! ERROR: cpp is undefined. Use list command to see defined gitignore types !!#
+# Created by http://gitignore.io
+
+### C++ ###
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+# Created by http://gitignore.io
+
+### CMake ###
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
+install_manifest.txt
